@@ -1,0 +1,57 @@
+﻿@using Magazyn.ViewModels
+@model PrzegladViewModel
+
+@{
+}
+
+<h1>Przegląd stanu magazynu</h1>
+
+<!-- Filtrowanie -->
+<div>
+    <form asp-action="Filtruj">
+        <label asp-for="Filtr" class="control-label"></label>
+        <input asp-for="Filtr" class="form-control" />
+        <div class="form-group">
+            <input type="submit" value="Filtruj" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+<!-- Wyświetlanie produktów -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => ((Produkt)model.Produkty).Nazwa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => ((Produkt)model.Produkty).Opis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => ((Produkt)model.Produkty).Kategoria)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Produkty)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nazwa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Opis)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kategoria.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
